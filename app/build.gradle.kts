@@ -64,7 +64,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            if (signingProp.exists()) signingConfig = signingConfigs.getByName("key")
         }
         debug {
             isMinifyEnabled = false
@@ -84,7 +83,6 @@ android {
                 "proguard-rules.pro"
             )
             applicationIdSuffix = ".r8test"
-            if (signingProp.exists()) signingConfig = signingConfigs.getByName("key")
             configure<CrashlyticsExtension> {
                 mappingFileUploadEnabled = false
             }
@@ -95,7 +93,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            if (signingProp.exists()) signingConfig = signingConfigs.getByName("key")
         }
     }
     // https://issuetracker.google.com/issues/260059413
