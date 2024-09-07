@@ -29,6 +29,12 @@ android {
             val properties = Properties().apply {
                 load(FileInputStream(signingProp))
             }
+            create("key") {
+                storeFile = rootProject.file(properties.getProperty("keystore.path"))
+                storePassword = properties.getProperty("keystore.pwd")
+                keyAlias = properties.getProperty("keystore.alias")
+                keyPassword = properties.getProperty("keystore.alias_pwd")
+            }
         }
     }
 
@@ -64,6 +70,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            if (signingProp.exists()) signingConfig = signingConfigs.getByName("key")
+            configure<CrashlyticsExtension> {
+                mappingFileUploadEnabled = false
+            }
         }
         debug {
             isMinifyEnabled = false
@@ -72,6 +82,9 @@ android {
                 "proguard-rules.pro"
             )
             applicationIdSuffix = ".debug"
+            configure<CrashlyticsExtension> {
+                mappingFileUploadEnabled = false
+            }
         }
         create("r8Test") {
             isMinifyEnabled = true
@@ -80,6 +93,10 @@ android {
                 "proguard-rules.pro"
             )
             applicationIdSuffix = ".r8test"
+            if (signingProp.exists()) signingConfig = signingConfigs.getByName("key")
+            configure<CrashlyticsExtension> {
+                mappingFileUploadEnabled = false
+            }
         }
         create("alpha") {
             isMinifyEnabled = true
@@ -87,6 +104,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            if (signingProp.exists()) signingConfig = signingConfigs.getByName("key")
         }
     }
     // https://issuetracker.google.com/issues/260059413
