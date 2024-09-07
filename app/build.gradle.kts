@@ -72,9 +72,6 @@ android {
                 "proguard-rules.pro"
             )
             applicationIdSuffix = ".debug"
-            configure<CrashlyticsExtension> {
-                mappingFileUploadEnabled = false
-            }
         }
         create("r8Test") {
             isMinifyEnabled = true
@@ -83,9 +80,6 @@ android {
                 "proguard-rules.pro"
             )
             applicationIdSuffix = ".r8test"
-            configure<CrashlyticsExtension> {
-                mappingFileUploadEnabled = false
-            }
         }
         create("alpha") {
             isMinifyEnabled = true
